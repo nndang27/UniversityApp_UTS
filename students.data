@@ -5,5 +5,23 @@
     "email": "NgocDang.Nguyen@university.com",
     "password": "Ngocdang2701",
     "subjects": []
+  },
+  {
+    "id": "817281",
+    "name": "Student Name",
+    "email": "student.name@university.com",
+    "password": "Study789",
+    "subjects": [
+      {
+        "id": "164",
+        "mark": 69,
+        "grade": "C"
+      },
+      {
+        "id": "983",
+        "mark": 58,
+        "grade": "P"
+      }
+    ]
   }
 ]
