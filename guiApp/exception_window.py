@@ -37,32 +37,26 @@ class ExceptionWindow(tk.Toplevel):
     """
 
     def __init__(self, parent, message: str) -> None:
-        """
-        PURPOSE:
-            Display a modal error-notification popup.
+        super().__init__(parent)
+        self.title("Error")
+        self.resizable(False, False)
+        self.configure(padx=28, pady=28)
+        self.transient(parent)
+        self.grab_set()
 
-        INPUT:
-            parent  -- the window that triggered the error
-                       (LoginWindow or EnrolmentWindow)
-            message -- human-readable description of the error (string)
-        OUTPUT:
-            None  (builds and shows the popup; blocks parent until dismissed)
+        tk.Label(
+            self,
+            text="⚠  " + message,
+            font=("Arial", 13),
+            justify="left",
+            wraplength=340,
+        ).pack(anchor="w")
 
-        STEPS TO IMPLEMENT:
-            1. super().__init__(parent)
-            2. self.title("Error")
-            3. self.resizable(False, False)
-            4. self.configure(padx=28, pady=28)
-            5. self.transient(parent)   — keep above the triggering window
-            6. self.grab_set()          — block parent interaction
-            7. Add a label with text "⚠  " + message
-               Use a medium-large font, e.g. ("Arial", 13)
-            8. Add a spacer or padding between the message and button
-            9. Add a "OK" ttk.Button with width=10 → command=self.destroy
-            10. self.bind("<Return>", lambda e: self.destroy())
-            11. self.bind("<Escape>", lambda e: self.destroy())
-            12. self.wait_visibility()
-            13. self.focus_set()
-        """
-        # TODO: build the exception window UI
-        pass
+        tk.Frame(self, height=16).pack()
+
+        ttk.Button(self, text="OK", width=10, command=self.destroy).pack()
+
+        self.bind("<Return>", lambda e: self.destroy())
+        self.bind("<Escape>", lambda e: self.destroy())
+        self.wait_visibility()
+        self.focus_set()
