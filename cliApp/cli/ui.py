@@ -1,12 +1,3 @@
-"""
-cliApp/cli/ui.py
-================
-OWNER: Person 1
-
-Terminal I/O helpers for CLIUniApp.
-All printing and input collection goes through display() and prompt()
-so that indentation and colour are applied consistently across every menu.
-"""
 
 from typing import Optional
 
@@ -51,16 +42,7 @@ def _indent(level: int) -> str:
 # ---------------------------------------------------------------------------
 
 def display(level: int, message: str, colour: str = "") -> None:
-    """
-    Print an indented message to the terminal, optionally coloured.
 
-    Input:
-        level   -- current menu depth (controls leading whitespace)
-        message -- text to print
-        colour  -- optional ANSI colour code (e.g. RED, GREEN); defaults to no colour
-    Output:
-        None  (prints one line to stdout)
-    """
     line = _indent(level) + message
     if colour:
         print(f"{colour}{line}{RESET}")
@@ -69,16 +51,7 @@ def display(level: int, message: str, colour: str = "") -> None:
 
 
 def prompt(level: int, message: str, colour: str = "") -> str:
-    """
-    Display an indented prompt, wait for user input, and return the trimmed result.
 
-    Input:
-        level   -- current menu depth (controls leading whitespace)
-        message -- prompt text shown before the cursor
-        colour  -- optional ANSI colour code for the prompt text
-    Output:
-        The string the user typed, with leading and trailing whitespace removed.
-    """
     text = _indent(level) + message
     if colour:
         text = f"{colour}{text}{RESET}"

@@ -1,9 +1,30 @@
 [
   {
-    "id": "243271",
-    "name": "Ngocdang Nguyen",
-    "email": "NgocDang.Nguyen@university.com",
-    "password": "Ngocdang2701",
-    "subjects": []
+    "id": "993846",
+    "name": "John Smith",
+    "email": "john.smith@university.com",
+    "password": "Hello123",
+    "subjects": [
+      {
+        "id": "595",
+        "mark": 75,
+        "grade": "D"
+      },
+      {
+        "id": "941",
+        "mark": 31,
+        "grade": "Z"
+      },
+      {
+        "id": "135",
+        "mark": 45,
+        "grade": "Z"
+      },
+      {
+        "id": "599",
+        "mark": 30,
+        "grade": "Z"
+      }
+    ]
   }
 ]

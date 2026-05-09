@@ -1,20 +1,3 @@
-"""
-guiApp/enrolment_window.py
-===========================
-OWNER: Person 4  —  Window 2: Enrolment Window  (2 marks)
-
-PURPOSE:
-    Shown immediately after a student successfully logs in.
-    Lists the student's currently enrolled subjects as clickable rows.
-    Provides an "Enrol" button to add a new random subject (max 4 total).
-    Each row also has a delete "🗑" button to drop that subject.
-    Clicking a subject name opens SubjectPopup (Window 3) for details.
-    Trying to enrol beyond 4 subjects opens ExceptionWindow (Window 4).
-
-MARKING CRITERIA (2 marks):
-    - Student can enrol in up to 4 subjects
-    - Subject list updates correctly in the window
-"""
 
 import tkinter as tk
 from tkinter import ttk

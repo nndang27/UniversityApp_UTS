@@ -1,16 +1,3 @@
-"""
-guiApp/subject_popup.py
-========================
-OWNER: Person 4  —  Window 3: Subject Detail Popup  (2 marks)
-
-PURPOSE:
-    A modal Toplevel window that shows the details of a single enrolled subject:
-    subject ID, mark, and grade.
-    Blocks all interaction with the EnrolmentWindow until the user closes it.
-
-MARKING CRITERIA (2 marks):
-    - Enrolled subjects with their marks and grades are displayed
-"""
 
 import tkinter as tk
 from tkinter import ttk

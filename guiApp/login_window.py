@@ -1,18 +1,3 @@
-"""
-guiApp/login_window.py
-=======================
-OWNER: Person 4  —  Window 1: Login Window  (2 marks)
-
-PURPOSE:
-    The main (root) Tk window of GUIUniApp.
-    Displays an email + password form.
-    On successful login the window hides itself and opens EnrolmentWindow.
-    On any failure it opens ExceptionWindow with an appropriate message.
-
-MARKING CRITERIA (2 marks):
-    - Students can log in using credentials stored in students.data
-    - After login the enrolment window is shown
-"""
 
 import tkinter as tk
 from tkinter import ttk

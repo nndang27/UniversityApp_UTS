@@ -1,26 +1,3 @@
-"""
-guiApp/exception_window.py
-===========================
-OWNER: Person 4  —  Window 4: Exception Window  (1 mark)
-
-PURPOSE:
-    A dedicated reusable modal error-notification window.
-    Used throughout GUIUniApp to inform the user of invalid actions or
-    formatting errors — for example:
-        - Empty email or password fields
-        - Email that does not match the university format
-        - Student credentials not found
-        - Attempt to enrol in more than 4 subjects
-
-    This is a separate Toplevel class (not messagebox.showerror) in order
-    to satisfy the assignment requirement for a 4th distinct GUI window.
-
-MARKING CRITERIA (1 mark):
-    - Notifies users of format errors and exceeding the 4-subject limit
-
-USAGE:
-    ExceptionWindow(parent_widget, "Your error message here")
-"""
 
 import tkinter as tk
 from tkinter import ttk
