@@ -63,7 +63,7 @@ def run_course_menu(level: int, student: Student) -> None:
     """
     # TODO: implement the course menu loop
     while True:
-        choice = prompt(level, "Course Menu (c/e/r/s/x): ", CYAN).strip().lower()
+        choice = prompt(level, "Student Course Menu (c/e/r/s/x): ", CYAN).strip().lower()
 
         if choice == "c":
             change_password(level + 1, student)
@@ -152,7 +152,7 @@ def enrol_subject(level: int, student: Student) -> None:
 
     Database.persist_all(all_students)
 
-    display(level, f"Enrolling in Subject-{sid}", YELLOW)
+    display(level, f"Enrolling in Subject-{int(sid):03d}", YELLOW)
     display(level, f"You are now enrolled in {len(student.subjects)} out of 4 subjects", YELLOW)
 
 
@@ -188,12 +188,10 @@ def show_subjects(level: int, student: Student) -> None:
             f"[Subject::{sub.subject_id} -- mark = {sub.mark} -- grade = {sub.grade}]"
     """
     # TODO: implement subject listing
-    if not student.subjects:
-        display(level, "No subjects enrolled yet", RED)
-        return
+    display(level, f"Showing {len(student.subjects)} subjects", YELLOW)
 
     for sub in student.subjects:
-        display(level, f"[Subject::{sub.subject_id} -- mark = {sub.mark} -- grade = {sub.grade}]")
+        display(level, f"[ Subject::{int(sub.subject_id):03d} -- mark = {sub.mark} -- grade = {sub.grade:>3} ]")
 
 
 # ---------------------------------------------------------------------------
@@ -240,7 +238,7 @@ def remove_subject(level: int, student: Student) -> None:
     subject = student.find_subject(entered_id)
 
     if subject is None:
-        display(level, f"Subject-{entered_id} not found", RED)
+        display(level, f"Subject-{int(entered_id):03d} not found", RED)
         return
 
     student.drop_subject(entered_id)
@@ -254,7 +252,7 @@ def remove_subject(level: int, student: Student) -> None:
 
     Database.persist_all(all_students)
 
-    display(level, f"Dropping Subject-{entered_id}", YELLOW)
+    display(level, f"Dropping Subject-{int(entered_id):03d}", YELLOW)
     display(level, f"You are now enrolled in {len(student.subjects)} out of 4 subjects", YELLOW)
 
 
@@ -314,7 +312,7 @@ def change_password(level: int, student: Student) -> None:
         confirm_pw = prompt(level, "Confirm Password: ", CYAN)
 
         if confirm_pw != new_pw:
-            display(level, "Password confirmation does not match", RED)
+            display(level, "Password does not match - try again", RED)
             continue
 
         break
