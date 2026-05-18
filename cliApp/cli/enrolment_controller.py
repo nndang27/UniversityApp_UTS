@@ -1,24 +1,3 @@
-"""
-cliApp/cli/enrolment_controller.py
-===================================
-OWNER: Person 2  —  Subject Enrolment System  (15 marks)
-
-This file contains the Subject Enrolment System menu and all operations
-a logged-in student can perform on their subject list.
-
-Marking criteria you are responsible for (15 marks total):
-    - Enrol in a subject (max 4)                [2 marks]
-    - Enrolment is tracked and persisted        [2 marks]
-    - Remove a subject by its ID                [2 marks]
-    - Show enrolled subjects                    [1 mark]
-    - Change password                           [2 marks]
-    - Read / write to students.data             [3 marks]
-    - Error handling                            [2 marks]
-    - I/O matches sample output                 [1 mark]
-
-DO NOT modify any file outside this file.
-All imports you will need are already listed below.
-"""
 
 import random
 
@@ -64,6 +43,9 @@ def run_course_menu(level: int, student: Student) -> None:
     # TODO: implement the course menu loop
     while True:
         choice = prompt(level, "Student Course Menu (c/e/r/s/x): ", CYAN).strip().lower()
+
+    while True:
+        choice = prompt(level, "Course Menu (c/e/r/s/x): ", CYAN).strip().lower()
 
         if choice == "c":
             change_password(level + 1, student)
@@ -130,6 +112,7 @@ def enrol_subject(level: int, student: Student) -> None:
         9. Display the confirmation and count messages.
     """
     # TODO: implement subject enrolment
+
     if student.at_capacity():
         display(level, "Students are allowed to enrol in 4 subjects only", RED)
         return
@@ -153,6 +136,7 @@ def enrol_subject(level: int, student: Student) -> None:
     Database.persist_all(all_students)
 
     display(level, f"Enrolling in Subject-{int(sid):03d}", YELLOW)
+    display(level, f"Enrolling in Subject-{sid}", YELLOW)
     display(level, f"You are now enrolled in {len(student.subjects)} out of 4 subjects", YELLOW)
 
 
@@ -192,6 +176,13 @@ def show_subjects(level: int, student: Student) -> None:
 
     for sub in student.subjects:
         display(level, f"[ Subject::{int(sub.subject_id):03d} -- mark = {sub.mark} -- grade = {sub.grade:>3} ]")
+
+    if not student.subjects:
+        display(level, "No subjects enrolled yet", RED)
+        return
+
+    for sub in student.subjects:
+        display(level, f"[Subject::{sub.subject_id} -- mark = {sub.mark} -- grade = {sub.grade}]")
 
 
 # ---------------------------------------------------------------------------
@@ -233,12 +224,14 @@ def remove_subject(level: int, student: Student) -> None:
         5. Display the confirmation and updated count.
     """
     # TODO: implement subject removal
+
     entered_id = prompt(level, "Remove Subject by ID: ", CYAN).strip()
 
     subject = student.find_subject(entered_id)
 
     if subject is None:
         display(level, f"Subject-{int(entered_id):03d} not found", RED)
+        display(level, f"Subject-{entered_id} not found", RED)
         return
 
     student.drop_subject(entered_id)
@@ -253,6 +246,7 @@ def remove_subject(level: int, student: Student) -> None:
     Database.persist_all(all_students)
 
     display(level, f"Dropping Subject-{int(entered_id):03d}", YELLOW)
+    display(level, f"Dropping Subject-{entered_id}", YELLOW)
     display(level, f"You are now enrolled in {len(student.subjects)} out of 4 subjects", YELLOW)
 
 
@@ -297,6 +291,7 @@ def change_password(level: int, student: Student) -> None:
         6. Display a success message.
     """
     # TODO: implement password change
+
     display(level, "Updating Password", YELLOW)
 
     while True:
@@ -313,6 +308,7 @@ def change_password(level: int, student: Student) -> None:
 
         if confirm_pw != new_pw:
             display(level, "Password does not match - try again", RED)
+            display(level, "Password confirmation does not match", RED)
             continue
 
         break
@@ -328,4 +324,5 @@ def change_password(level: int, student: Student) -> None:
 
     student.password = new_pw
 
+    display(level, "Password updated successfully", YELLOW)
     display(level, "Password updated successfully", YELLOW)
