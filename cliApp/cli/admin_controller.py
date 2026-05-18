@@ -56,7 +56,23 @@ def run_admin_menu(level: int) -> None:
         Use prompt(level, "...", CYAN) to read the user's choice.
     """
     # TODO: implement the admin menu loop
-    pass
+    while True:
+        choice = prompt(level, "Admin System (c/g/p/r/s/x): ", CYAN).lower()
+
+        if choice == "c":
+            clear_database(level + 1)
+        elif choice == "g":
+            group_by_grade(level + 1)
+        elif choice == "p":
+            partition_pass_fail(level + 1)
+        elif choice == "r":
+            remove_student(level + 1)
+        elif choice == "s":
+            show_students(level + 1)
+        elif choice == "x":
+            break
+        else:
+            display(level + 1, "Invalid option", RED)
 
 
 # ---------------------------------------------------------------------------
@@ -88,8 +104,18 @@ def show_students(level: int) -> None:
         3. display(level, "Student List", YELLOW) as a heading.
         4. Iterate and display each student in the required format.
     """
-    # TODO: implement student listing
-    pass
+       # TODO: implement student listing
+    students = Database.fetch_all()
+
+    if len(students) == 0:
+        display(level + 2, "<Nothing to Display>")
+        return
+
+    display(level, "Student List", YELLOW)
+
+    for student in students:
+        text = f"{student.name} :: {student.student_id} --> Email: {student.email}"
+        display(level + 1, text)
 
 
 # ---------------------------------------------------------------------------
@@ -135,7 +161,37 @@ def group_by_grade(level: int) -> None:
         6. Print Z, P, C, D, HD buckets in that order, only if non-empty.
     """
     # TODO: implement grade grouping
-    pass
+    students = Database.fetch_all()
+
+    if len(students) == 0:
+        display(level + 2, "<Nothing to Display>")
+        return
+
+    groups = {
+        "Z": [],
+        "P": [],
+        "C": [],
+        "D": [],
+        "HD": [],
+        "N/A": []
+    }
+
+    for student in students:
+        avg = student.average_mark()
+
+        if avg is None:
+            groups["N/A"].append(student)
+        else:
+            grade = compute_grade(round(avg))
+            groups[grade].append(student)
+
+    for grade in ["Z", "P", "C", "D", "HD", "N/A"]:
+        if len(groups[grade]) > 0:
+            display(level, f"{grade} -->", YELLOW)
+
+            for student in groups[grade]:
+                text = f"{student.name} :: {student.student_id} --> GRADE: {grade}"
+                display(level + 1, text)
 
 
 # ---------------------------------------------------------------------------
@@ -183,7 +239,31 @@ def partition_pass_fail(level: int) -> None:
         Build the comma-separated list with ", ".join(buckets["PASS"]) etc.
     """
     # TODO: implement pass/fail partition
-    pass
+    students = Database.fetch_all()
+
+    buckets = {
+        "N/A": [],
+        "FAIL": [],
+        "PASS": []
+    }
+
+    for student in students:
+        avg = student.average_mark()
+
+        if avg is None:
+            buckets["N/A"].append(f"{student.name} :: {student.student_id}")
+        elif avg >= 50:
+            buckets["PASS"].append(f"{student.name} :: {student.student_id} --> GRADE: PASS")
+        else:
+            buckets["FAIL"].append(f"{student.name} :: {student.student_id} --> GRADE: FAIL")
+
+    for label in ["N/A", "FAIL", "PASS"]:
+        entries = buckets[label]
+
+        if len(entries) == 0:
+            display(level, f"{label} --> []", YELLOW)
+        else:
+            display(level, f"{label} --> [{', '.join(entries)}]", YELLOW)
 
 
 # ---------------------------------------------------------------------------
@@ -217,7 +297,25 @@ def remove_student(level: int) -> None:
         7. Display a confirmation message.
     """
     # TODO: implement student removal
-    pass
+    students = Database.fetch_all()
+
+    student_id = prompt(level, "Remove by" \
+    " ID: ", CYAN)
+
+    found = False
+    updated_students = []
+
+    for student in students:
+        if student.student_id == student_id:
+            found = True
+        else:
+            updated_students.append(student)
+
+    if found:
+        Database.persist_all(updated_students)
+        display(level, f"Removing Student {student_id} Account", YELLOW)
+    else:
+        display(level, f"Student {student_id} does not exist", RED)
 
 
 # ---------------------------------------------------------------------------
@@ -248,4 +346,10 @@ def clear_database(level: int) -> None:
         5. Otherwise: return without making changes.
     """
     # TODO: implement database clearing
-    pass
+    answer = prompt(level, "Clear database? Y/N: ", CYAN)
+
+    if answer.upper() == "Y":
+        Database.persist_all([])
+        display(level, "Students data cleared", YELLOW)
+    else:
+        display(level, "Clear cancelled", RED)
