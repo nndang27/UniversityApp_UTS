@@ -1,9 +1,67 @@
 [
   {
-    "id": "243271",
+    "student_id": "341260",
     "name": "Ngocdang Nguyen",
     "email": "NgocDang.Nguyen@university.com",
     "password": "Ngocdang2701",
-    "subjects": []
+    "subjects": [
+      {
+        "subject_id": "101",
+        "mark": 88,
+        "grade": "HD"
+      }
+    ]
+  },
+  {
+    "student_id": "846440",
+    "name": "Ahmad Alqahtani",
+    "email": "ahmad.alqahtani@university.com",
+    "password": "Ahmad2701",
+    "subjects": [
+      {
+        "subject_id": "102",
+        "mark": 69,
+        "grade": "C"
+      }
+    ]
+  },
+  {
+    "student_id": "237461",
+    "name": "Emily Johnson",
+    "email": "emily.johnson@university.com",
+    "password": "Emily2701",
+    "subjects": [
+      {
+        "subject_id": "103",
+        "mark": 54,
+        "grade": "P"
+      }
+    ]
+  },
+  {
+    "student_id": "210175",
+    "name": "Jane Doe",
+    "email": "jane.doe@university.com",
+    "password": "Jane2701",
+    "subjects": [
+      {
+        "subject_id": "104",
+        "mark": 41,
+        "grade": "Z"
+      }
+    ]
+  },
+  {
+    "student_id": "390201",
+    "name": "Michael Brown",
+    "email": "michael.brown@university.com",
+    "password": "Michael2701",
+    "subjects": [
+      {
+        "subject_id": "105",
+        "mark": 35,
+        "grade": "Z"
+      }
+    ]
   }
 ]
